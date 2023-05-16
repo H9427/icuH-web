@@ -3,21 +3,24 @@
     <div class="container">
       <div class="login">
         <div class="hero">
-          <h1>Sign In to<br>Open the World</h1>
-          <p>If you don't have an account.<br>you can <a @click="this.$router.push('/register')">Register here</a>.</p>
+          <h1>Sign In to<br />Open the World</h1>
+          <p>
+            If you don't have an account.<br />you can
+            <a @click="this.$router.push('/register')">Register here</a>.
+          </p>
         </div>
         <div class="main">
           <form action="">
             <p>
-              <input type="email" placeholder="Username">
+              <input type="email" placeholder="Username" />
             </p>
             <p class="password">
-              <input type="password" placeholder="Password">
+              <input type="password" placeholder="Password" />
               <i class="ri-eye-off-line"></i>
               <a href="#">Recovery password</a>
             </p>
             <p>
-              <input type="submit" class="submit" value="Sign In">
+              <input type="submit" class="submit" value="Sign In" />
             </p>
           </form>
           <div class="options">
@@ -25,9 +28,15 @@
               <p>or continue with</p>
             </div>
             <ul>
-              <li><a href="#"><i class="ri-google-fill ri-2x"></i></a></li>
-              <li><a href="#"><i class="ri-twitter-fill ri-2x"></i></a></li>
-              <li><a href="#"><i class="ri-facebook-fill ri-2x"></i></a></li>
+              <li>
+                <a href="#"><i class="ri-google-fill ri-2x"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="ri-twitter-fill ri-2x"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="ri-facebook-fill ri-2x"></i></a>
+              </li>
             </ul>
           </div>
         </div>
@@ -39,249 +48,247 @@
 <script>
 export default {
   data() {
-    return {
-
-    }
-  }
-}
+    return {};
+  },
+};
 </script>
 
 <style>
-@import url('https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500&display=swap");
 /*用中文替换原先英文字体*/
 :root {
-    --primary-color: #7582f7;
-    --white-color: #ffffff;
+  --primary-color: #7582f7;
+  --white-color: #ffffff;
 
-    --light-text-color: #9398b3;
-    --light-bg-color: #f2f4ff;
-    --dark-color: #333333;
+  --light-text-color: #9398b3;
+  --light-bg-color: #f2f4ff;
+  --dark-color: #333333;
 
-    --background-color: #fcfcff;
+  --background-color: #fcfcff;
 }
 
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
-*, ::before::after {
-    box-sizing: border-box;
+*,
+::before::after {
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Noto Sans SC', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.8;
-    color: var(--dark-color);
-    background-color: var(--background-color);
-    user-select: none;
-    -webkit-user-drag: none;
+  font-family: "Noto Sans SC", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--dark-color);
+  background-color: var(--background-color);
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
-    -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 h1 {
-    font-size: 3em;
-    margin-left: -32%;
-    font-weight: 700;
-    line-height: normal;
-    color: black;
-    z-index: 1;
+  font-size: 3em;
+  margin-left: -32%;
+  font-weight: 700;
+  line-height: normal;
+  color: black;
+  z-index: 1;
 }
 
-.hero p{
-    margin-left: -55%;
+.hero p {
+  margin-left: -55%;
 }
 
 .site {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 .container {
-    max-width: 1000px;
-    width: 100%;
-    padding: 0 30px;
-    margin: 0 auto;
+  max-width: 1000px;
+  width: 100%;
+  padding: 0 30px;
+  margin: 0 auto;
 }
 
 .login {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .hero {
-    flex: 1 0 60%;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-    padding: 70px 0;
+  flex: 1 0 60%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding: 70px 0;
 }
 
 .hero::before {
-    content: '';
-    position: absolute;
-    top: 15%;
-    left: 0;
-    width: 280px;
-    height: 100px;
-    background: linear-gradient(to right, var(--primary-color), #c471ed, #f64f59);
-    filter: blur(70px);
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: 0;
+  width: 280px;
+  height: 100px;
+  background: linear-gradient(to right, var(--primary-color), #c471ed, #f64f59);
+  filter: blur(70px);
 }
 
-
 .hero a {
-    font-weight: 500;
-    color: var(--primary-color);
-    transition: color .3s;
+  font-weight: 500;
+  color: var(--primary-color);
+  transition: color 0.3s;
 }
 
 .hero a:hover,
 form .password a:hover {
-    color: var(--dark-color);
-    text-decoration: underline;
+  color: var(--dark-color);
+  text-decoration: underline;
 }
 
 .main {
-    flex: 1 0 33.3333%;
+  flex: 1 0 33.3333%;
 }
 
 .main form {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .main form p {
-    position: relative;
+  position: relative;
 }
 
 form input {
-    font: inherit;
-    font-size: 14px;
-    width: 100%;
-    border: 0;
-    outline: 0;
-    padding: 0 20px;
-    line-height: 60px;
-    border-radius: 10px;
-    /*修复input 加入padding之后大小变化的问题*/
-    box-sizing: border-box;
+  font: inherit;
+  font-size: 14px;
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: 0 20px;
+  line-height: 60px;
+  border-radius: 10px;
+  /*修复input 加入padding之后大小变化的问题*/
+  box-sizing: border-box;
 }
 
 input::placeholder {
-    color: var(--dark-color);
-    font-family: 'Noto Sans SC', sans-serif;
-    font-size: inherit;
+  color: var(--dark-color);
+  font-family: "Noto Sans SC", sans-serif;
+  font-size: inherit;
 }
 
 form input:not(.submit) {
-    background-color: var(--light-bg-color);
+  background-color: var(--light-bg-color);
 }
 
 form .password i {
-    position: absolute;
-    top: calc(60px / 2);
-    right: 20px;
-    margin-top: -8px;
-    line-height: 1;
-    color: var(--light-text-color);
-    cursor: pointer;
+  position: absolute;
+  top: calc(60px / 2);
+  right: 20px;
+  margin-top: -8px;
+  line-height: 1;
+  color: var(--light-text-color);
+  cursor: pointer;
 }
 
 form .password a {
-    font-size: 13px;
-    color: var(--light-text-color);
-    float: right;
-    margin: 5px 20px 0 0;
+  font-size: 13px;
+  color: var(--light-text-color);
+  float: right;
+  margin: 5px 20px 0 0;
 }
 
 form input.submit {
-    font-weight: 700;
-    color: var(--white-color);
-    background-color: var(--primary-color);
-    box-shadow: var(--primary-color) 0 20px 30px -10px;
-    cursor: pointer;
-    transition: box-shadow .3s;
+  font-weight: 700;
+  color: var(--white-color);
+  background-color: var(--primary-color);
+  box-shadow: var(--primary-color) 0 20px 30px -10px;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
 }
 
 form input.submit:hover {
-    box-shadow: var(--primary-color) 0 10px 30px -10px;
+  box-shadow: var(--primary-color) 0 10px 30px -10px;
 }
 
 .separator {
-    position: relative;
-    margin: 50px 0 30px;
+  position: relative;
+  margin: 50px 0 30px;
 }
 
 .separator::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    height: 1px;
-    background-color: var(--light-text-color);
-    opacity: .3;
-    z-index: 1;
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  background-color: var(--light-text-color);
+  opacity: 0.3;
+  z-index: 1;
 }
 
 .separator p {
-    font-size: 14px;
-    width: fit-content;
-    padding: 0 10px;
-    color: var(--light-text-color);
-    background-color: var(--background-color);
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
+  font-size: 14px;
+  width: fit-content;
+  padding: 0 10px;
+  color: var(--light-text-color);
+  background-color: var(--background-color);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .options ul {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
 .options ul li a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
-    background-color: var(--white-color);
-    box-shadow: var(--light-text-color) 0 10px 20px -10px;
-    transition: all .3s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  background-color: var(--white-color);
+  box-shadow: var(--light-text-color) 0 10px 20px -10px;
+  transition: all 0.3s ease-out;
 }
 
 .options ul li a:hover {
-    color: var(--white-color);
-    box-shadow: none;
+  color: var(--white-color);
+  box-shadow: none;
 }
 /*用STEAM PSN XBOX替换原先APPLE GOOGLE FACEBOOK图标*/
 .options ul li:nth-child(1) a:hover {
-    background-color: #171a21;
+  background-color: #171a21;
 }
 
 .options ul li:nth-child(2) a:hover {
-    background-color: #00439c;
+  background-color: #00439c;
 }
 
 .options ul li:nth-child(3) a:hover {
-    background-color: #107c10;
+  background-color: #107c10;
 }
 </style>

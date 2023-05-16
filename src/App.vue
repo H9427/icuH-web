@@ -2,9 +2,6 @@
   <div id="app">
     <router-view />
 
-
-
-    
     <!-- <footer class="footer p-10 bg-base-200 text-base-content">
       <div>
         <span class="footer-title">Services</span>

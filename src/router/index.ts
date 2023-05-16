@@ -20,6 +20,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/Register.vue')
   },
   {
+    path: '/home',
+    name: 'Home',
+    component: () => import('../views/Home.vue')
+  },
+  {
     path: '/:catchAll(.*)',
     name: '404',
     component: () => import('../views/404.vue')
