@@ -3,16 +3,22 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Index',
-    component: () => import('../views/Index.vue'),
-    // meta: {
+    name: 'Home',
+    component: () => import('@/views/Home.vue'),
+    // children: [
+    //   {
+    //     path: '/home',
+    //     name: 'Home',
+    //     component: () => import('@'),
+    //   }
+    // ]
     //   showNavbar: true // 不显示导航栏
     // }
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login.vue')
+    component: () => import('@/views/Login.vue')
   },
   {
     path: '/register',

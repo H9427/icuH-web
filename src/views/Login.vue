@@ -10,6 +10,7 @@
           </p>
         </div>
         <div class="main">
+          <!-- 登录 -->
           <form action="">
             <p>
               <input type="email" placeholder="Username" />
@@ -20,9 +21,11 @@
               <a href="#">Recovery password</a>
             </p>
             <p>
-              <input type="submit" class="submit" value="Sign In" />
+              <input type="submit" class="submit" value="Sign In" @click="login"/>
             </p>
           </form>
+
+
           <div class="options">
             <div class="separator">
               <p>or continue with</p>
@@ -46,11 +49,12 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {};
-  },
-};
+import { reactive } from "vue"
+
+const loginData = reactive({})
+const login = () => {
+ console.log(loginData);
+}
 </script>
 
 <style>

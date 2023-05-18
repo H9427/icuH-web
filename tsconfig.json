@@ -34,7 +34,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-  ],
+, "src/element-plus.d.ts"  ],
   "exclude": [
     "node_modules"
   ]
