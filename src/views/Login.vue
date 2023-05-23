@@ -1,298 +1,153 @@
 <template>
-  <div id="page" class="site">
-    <div class="container">
-      <div class="login">
-        <div class="hero">
-          <h1>Sign In to<br />Open the World</h1>
-          <p>
-            If you don't have an account.<br />you can
-            <a @click="this.$router.push('/register')">Register here</a>.
-          </p>
+  <div class="login-container">
+    <div class="login-image">
+      <img src="../assets/img/bg1.jpg" alt="Login Image" />
+    </div>
+    <div class="login-form">
+      <h2 class="login-title" style="padding-left: 10%">Sign in to icuH</h2>
+      <div style="margin-right: 10%">
+        <div class="form-control">
+          <input type="text" v-model="user.name" placeholder="Email or Username" class="input" />
         </div>
-        <div class="main">
-          <!-- 登录 -->
-          <form action="">
-            <p>
-              <input type="email" placeholder="Username" />
-            </p>
-            <p class="password">
-              <input type="password" placeholder="Password" />
-              <i class="ri-eye-off-line"></i>
-              <a href="#">Recovery password</a>
-            </p>
-            <p>
-              <input type="submit" class="submit" value="Sign In" @click="login"/>
-            </p>
-          </form>
-
-
-          <div class="options">
-            <div class="separator">
-              <p>or continue with</p>
-            </div>
-            <ul>
-              <li>
-                <a href="#"><i class="ri-google-fill ri-2x"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="ri-twitter-fill ri-2x"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="ri-facebook-fill ri-2x"></i></a>
-              </li>
-            </ul>
-          </div>
+        <div class="form-control">
+          <input type="password" v-model="user.password" placeholder="Password" class="input" />
         </div>
+        <button type="submit" class="btn btn-primary" @click="login">Log In</button>
+      </div>
+
+      <div class="login-links">
+        <a @click="this.$router.push('/register')" class="link">Register for icuH</a>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import { reactive } from "vue"
+<script setup>
+import { ElMessage,ElNotification } from "element-plus";
+import { ref, reactive } from "vue";
+import request from "../request.js";
 
-const loginData = reactive({})
+const user = reactive({
+  name: "张三",
+});
+
 const login = () => {
- console.log(loginData);
-}
+  if (!user.name || !user.password) {
+    ElNotification({
+      type: "error",
+      message: "请输入用户名或密码",
+    });
+  } else {
+    // 执行登录逻辑
+    request.post("/user/login").then((res) => {
+      if (res.code === '200') {
+        ElNotification({
+          type: "success",
+          message: "请输入用户名或密码",
+        });
+      } else {
+        ElNotification({
+          type: "error",
+          message: "请输入用户名或密码",
+        });
+      }
+    });
+  }
+};
 </script>
 
 <style>
-@import url("https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css");
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500&display=swap");
-/*用中文替换原先英文字体*/
-:root {
-  --primary-color: #7582f7;
-  --white-color: #ffffff;
-
-  --light-text-color: #9398b3;
-  --light-bg-color: #f2f4ff;
-  --dark-color: #333333;
-
-  --background-color: #fcfcff;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-}
-
-*,
-::before::after {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Noto Sans SC", sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.8;
-  color: var(--dark-color);
-  background-color: var(--background-color);
-  user-select: none;
-  -webkit-user-drag: none;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-  -webkit-tap-highlight-color: transparent;
-}
-
-ul {
-  list-style: none;
-}
-
-h1 {
-  font-size: 3em;
-  margin-left: -32%;
-  font-weight: 700;
-  line-height: normal;
-  color: black;
-  z-index: 1;
-}
-
-.hero p {
-  margin-left: -55%;
-}
-
-.site {
+.login-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
+  background-color: #f2f5f9;
 }
 
-.container {
-  max-width: 1000px;
+.login-image {
+  width: 70%;
+  overflow: hidden;
+}
+
+.login-image img {
   width: 100%;
-  padding: 0 30px;
-  margin: 0 auto;
+  height: 100%;
+  object-fit: cover;
 }
 
-.login {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.hero {
-  flex: 1 0 60%;
-  position: relative;
+.login-form {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 50px;
-  padding: 70px 0;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
-.hero::before {
-  content: "";
-  position: absolute;
-  top: 15%;
-  left: 0;
-  width: 280px;
-  height: 100px;
-  background: linear-gradient(to right, var(--primary-color), #c471ed, #f64f59);
-  filter: blur(70px);
+.login-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 30px;
 }
 
-.hero a {
-  font-weight: 500;
-  color: var(--primary-color);
-  transition: color 0.3s;
+.form-control {
+  margin-bottom: 20px;
+  width: 100%;
 }
 
-.hero a:hover,
-form .password a:hover {
-  color: var(--dark-color);
-  text-decoration: underline;
+.input {
+  width: 140%;
+  padding: 12px;
+  border: 1px solid #e0e6ed;
+  border-radius: 3px;
+  background-color: #f5f8fa;
+  color: #333333;
+  transition: border-color 0.3s ease;
 }
 
-.main {
-  flex: 1 0 33.3333%;
+.input:focus {
+  outline: none;
+  border-color: #1e90ff;
+  box-shadow: 0 0 0 2px rgba(30, 144, 255, 0.2);
 }
 
-.main form {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+.btn {
+  width: 140%;
+  padding: 12px 0;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  background-color: #1e90ff;
+  color: #ffffff;
+  border: none;
 }
 
-.main form p {
-  position: relative;
+.btn:hover {
+  background-color: #007bff;
 }
 
-form input {
-  font: inherit;
+.login-links {
+  margin-top: 20px;
+  text-align: center;
   font-size: 14px;
-  width: 100%;
-  border: 0;
-  outline: 0;
-  padding: 0 20px;
-  line-height: 60px;
-  border-radius: 10px;
-  /*修复input 加入padding之后大小变化的问题*/
-  box-sizing: border-box;
 }
 
-input::placeholder {
-  color: var(--dark-color);
-  font-family: "Noto Sans SC", sans-serif;
-  font-size: inherit;
-}
-
-form input:not(.submit) {
-  background-color: var(--light-bg-color);
-}
-
-form .password i {
-  position: absolute;
-  top: calc(60px / 2);
-  right: 20px;
-  margin-top: -8px;
-  line-height: 1;
-  color: var(--light-text-color);
-  cursor: pointer;
-}
-
-form .password a {
-  font-size: 13px;
-  color: var(--light-text-color);
-  float: right;
-  margin: 5px 20px 0 0;
-}
-
-form input.submit {
-  font-weight: 700;
-  color: var(--white-color);
-  background-color: var(--primary-color);
-  box-shadow: var(--primary-color) 0 20px 30px -10px;
-  cursor: pointer;
-  transition: box-shadow 0.3s;
-}
-
-form input.submit:hover {
-  box-shadow: var(--primary-color) 0 10px 30px -10px;
+.link {
+  color: #1e90ff;
+  text-decoration: none;
 }
 
 .separator {
-  position: relative;
-  margin: 50px 0 30px;
-}
-
-.separator::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  height: 1px;
-  background-color: var(--light-text-color);
-  opacity: 0.3;
-  z-index: 1;
-}
-
-.separator p {
-  font-size: 14px;
-  width: fit-content;
-  padding: 0 10px;
-  color: var(--light-text-color);
-  background-color: var(--background-color);
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-
-.options ul {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.options ul li a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 10px;
-  background-color: var(--white-color);
-  box-shadow: var(--light-text-color) 0 10px 20px -10px;
-  transition: all 0.3s ease-out;
-}
-
-.options ul li a:hover {
-  color: var(--white-color);
-  box-shadow: none;
-}
-/*用STEAM PSN XBOX替换原先APPLE GOOGLE FACEBOOK图标*/
-.options ul li:nth-child(1) a:hover {
-  background-color: #171a21;
-}
-
-.options ul li:nth-child(2) a:hover {
-  background-color: #00439c;
-}
-
-.options ul li:nth-child(3) a:hover {
-  background-color: #107c10;
+  margin: 0 4px;
+  color: #999999;
 }
 </style>

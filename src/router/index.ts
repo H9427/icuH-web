@@ -3,8 +3,15 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
+    name: 'Manage',
     component: () => import('@/views/Home.vue'),
+    children: [
+      {
+        path: '/',
+        name: 'Manage',
+        component: () => import('@/views/Home.vue'),
+      }
+    ]
     // children: [
     //   {
     //     path: '/home',
@@ -25,11 +32,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Register',
     component: () => import('../views/Register.vue')
   },
-  {
-    path: '/home',
-    name: 'Home',
-    component: () => import('../views/Home.vue')
-  },
+  // {
+  //   path: '/home',
+  //   name: 'Home',
+  //   component: () => import('../views/Home.vue')
+  // },
   {
     path: '/:catchAll(.*)',
     name: '404',
