@@ -1,153 +1,191 @@
-<template>
-  <div class="login-container">
-    <div class="login-image">
-      <img src="../assets/img/bg1.jpg" alt="Login Image" />
-    </div>
-    <div class="login-form">
-      <h2 class="login-title" style="padding-left: 10%">Sign in to icuH</h2>
-      <div style="margin-right: 10%">
-        <div class="form-control">
-          <input type="text" v-model="user.name" placeholder="Email or Username" class="input" />
-        </div>
-        <div class="form-control">
-          <input type="password" v-model="user.password" placeholder="Password" class="input" />
-        </div>
-        <button type="submit" class="btn btn-primary" @click="login">Log In</button>
-      </div>
+<body>
+  <script src="https://cdn.staticfile.org/vue/2.6.9/vue.js"></script>
+</body>
 
-      <div class="login-links">
-        <a @click="this.$router.push('/register')" class="link">Register for icuH</a>
+<template>
+  <div id='app' class="container">
+    <img src="../../public/loginRegister/bg.jpg"/>
+    <div class="panel">
+      <div class="content login">
+
+        <div class="switch">
+          <span :class='{"active": active === "login"}' @click="$router.push('/login')">Login</span>
+          <span> / </span>
+          <span :class='{"active": active === "register"}' @click="$router.push('/register')">Register</span>
+        </div>
+        <div class='form' id="fromLogin">
+          <el-form :model="user" :rules="rules" ref="userForm">
+            <div class="input"><input :class='{ hasValue: user.username }' v-model='user.username' type="text" name="username" id="username" /><label >用户名</label></div>
+            <div class="input"><input :class='{ hasValue: user.password }' v-model='user.password' type="password" name="password" id="password" /><label>密码</label></div>
+            <el-button size="small" autocomplete="off" @click="login">Login</el-button>
+          </el-form>
+        </div>
+        <el-button size="small" style="margin-left: 35%; margin-top: 70%" autocomplete="off" @click="frontHome">Main</el-button>
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
-import { ElMessage,ElNotification } from "element-plus";
-import { ref, reactive } from "vue";
-import request from "../request.js";
+<script>
+import {setRoutes} from "@/router";
 
-const user = reactive({
-  name: "张三",
-});
-
-const login = () => {
-  if (!user.name || !user.password) {
-    ElNotification({
-      type: "error",
-      message: "请输入用户名或密码",
-    });
-  } else {
-    // 执行登录逻辑
-    request.post("/user/login").then((res) => {
-      if (res.code === '200') {
-        ElNotification({
-          type: "success",
-          message: "请输入用户名或密码",
-        });
-      } else {
-        ElNotification({
-          type: "error",
-          message: "请输入用户名或密码",
-        });
+export default {
+  name: "Login",
+  data() {
+    return {
+      active: 'login',
+      user: {username: '', password: '', },
+      rules: {
+        username: [
+          // {required: true, message: 'Please enter your username', trigger: 'blur'},
+          {required: true, message: ' ', trigger: 'blur'},
+          {min: 3, max: 10, message: '长度在 3 到 5 个字符', trigger: 'blur'}
+        ],
+        password: [
+          {required: true, message: ' ', trigger: 'blur'},
+          {min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur'}
+        ],
       }
-    });
+    }
+  },
+  methods: {
+    login() {
+      this.$refs['userForm'].validate((valid) => {
+        if (valid) {  // 表单校验合法
+          this.request.post("/user/login", this.user).then(res => {
+            if(res.code === '200') {
+              localStorage.setItem("user", JSON.stringify(res.data))//存储用户信息
+              localStorage.setItem("menus", JSON.stringify(res.data.menus))
+              //动态设置当前用户的路由
+              setRoutes()
+
+              this.$message.success("登陆成功")
+
+              if(res.data.role === 'ROLE_USER') {
+                this.$router.push("/front/home")
+              } else {
+                this.$router.push("/home")
+              }
+            } else {
+              this.$message.error(res.msg)
+            }
+          })
+        }
+      });
+    },
+    frontHome() {
+      this.$router.push("/front/home")
+    }
   }
-};
+}
 </script>
 
 <style>
-.login-container {
-  display: flex;
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
   height: 100vh;
-  background-color: #f2f5f9;
-}
-
-.login-image {
-  width: 70%;
-  overflow: hidden;
-}
-
-.login-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.login-form {
-  flex: 1;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 40px;
-  border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  font-family: miaowu;
+  background: linear-gradient(45deg, rgb(181, 154, 254), rgb(245, 189, 253)) fixed;
 }
 
-.login-title {
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  color: #333333;
-  margin-bottom: 30px;
+.container {
+  position: relative;
+  width: 70rem;
 }
 
-.form-control {
-  margin-bottom: 20px;
-  width: 100%;
+.container img {
+  width: 70rem;
 }
 
-.input {
-  width: 140%;
-  padding: 12px;
-  border: 1px solid #e0e6ed;
-  border-radius: 3px;
-  background-color: #f5f8fa;
-  color: #333333;
-  transition: border-color 0.3s ease;
-}
-
-.input:focus {
-  outline: none;
-  border-color: #1e90ff;
-  box-shadow: 0 0 0 2px rgba(30, 144, 255, 0.2);
-}
-
-.btn {
-  width: 140%;
-  padding: 12px 0;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 3px;
-  transition: background-color 0.3s ease;
+.switch span {
+  color: #ccc;
+  font-size: 1.4rem;
   cursor: pointer;
-  background-color: #1e90ff;
-  color: #ffffff;
+}
+
+.switch span.active {
+  color: rgb(181, 154, 254);
+}
+
+.panel {
+  width: 30%;
+  margin: 10rem 0 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+}
+
+.form {
+  width: 12rem;
+  margin: 3rem 0 0;
+}
+
+.form .input {
+  position: relative;
+  opacity: 1;
+  height: 2rem;
+  width: 100%;
+  margin: 2rem 0;
+  transition: .4s;
+}
+
+.input input {
+  outline: none;
+  width: 100%;
   border: none;
+  border-bottom: .1rem solid rgb(181, 154, 254);
+  position: relative;
+  line-height: 35px;
+  background: transparent;
+  z-index: 1;
 }
 
-.btn:hover {
-  background-color: #007bff;
+.input label {
+  position: absolute;
+  left: 0;
+  top: 20%;
+  font-size: 1.2rem;
+  color: rgb(129, 101, 207);
+  transition: .3s;
 }
 
-.login-links {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 14px;
+/* fixbug for IMBIT（1448214956） */
+.hasValue ~ label, input:focus ~ label {
+  top: -50%;
+  font-size: .9rem;
 }
 
-.link {
-  color: #1e90ff;
-  text-decoration: none;
+
+
+.form span {
+  display: block;
+  color: rgb(110, 89, 167);
+  font-size: .8rem;
+  cursor: pointer;
 }
 
-.separator {
-  margin: 0 4px;
-  color: #999999;
+.form button {
+  border: none;
+  outline: none;
+  margin: 2.5rem 0 0;
+  width: 100%;
+  height: 3rem;
+  border-radius: 3rem;
+  background: linear-gradient(90deg, rgb(181, 154, 254), rgb(245, 189, 253));
+  box-shadow: 0 0 8px rgb(181, 154, 254);
+  cursor: pointer;
+  color: white;
+  font-family: miaowu;
 }
+
 </style>
